@@ -1,6 +1,7 @@
 export default interface Peoples {
     count: number,
     next: any,
-    pervious: any,
+    previous: any,
     results: Array<object>
-}
+  }
+  
