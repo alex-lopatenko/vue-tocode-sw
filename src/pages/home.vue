@@ -6,12 +6,19 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from 'vue'
+import DataService from '@/services/DataService'
+import ResponseData from '@/types/ResponseData'
 
 export default defineComponent({
   setup() {
-    axios.get('url').then(() => {})
-  },
+    onMounted(() => getPeople())
+
+    const getPeople = () => {
+      DataService.getAll()
+      .then((res: ResponseData) => console.log(res.data))
+      .catch((e:Error) => console.log(e))
+    }
+  }
 })
 </script>
