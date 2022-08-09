@@ -6,19 +6,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import DataService from '@/services/DataService'
 import ResponseData from '@/types/ResponseData'
+import Peoples from '@/types/Peoples'
 
 export default defineComponent({
   setup() {
+
+    const loading = ref(true as boolean)
+    const peoples = ref({} as Peoples)
+
     onMounted(() => getPeople())
 
-    const getPeople = () => {
+    const getPeople = () =>
       DataService.getAll()
-      .then((res: ResponseData) => console.log(res.data))
+      .then((res: ResponseData) => {
+        peoples.value = res.data
+        loading.value = false
+        })
       .catch((e:Error) => console.log(e))
-    }
+
+    console.log(peoples)
+    
   }
 })
 </script>
